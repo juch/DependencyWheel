@@ -1,88 +1,71 @@
 {
-    "name":        "sylius/sylius",
-    "type":        "project",
-    "description": "Modern ecommerce for Symfony2",
-    "license":     "MIT",
-    "homepage":    "http://sylius.org",
-    "authors": [
+    "name": "ent-mut-bo",
+    "description": "ent-mut-bo",
+    "keywords": [
+        "Université Paris-Saclay"
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "bin-dir": "vendor/bin/",
+        "discard-changes": true
+    },
+    "repositories": [
         {
-            "name":     "Paweł Jędrzejewski",
-            "homepage": "http://pjedrzejewski.com"
+            "type": "package",
+            "package": {
+                "name": "ent/cssmin",
+                "version": "3.0.1",
+                "dist": { "url": "http://cssmin.googlecode.com/files/cssmin-v3.0.1.php", "type": "file" },
+                "autoload": { "classmap": [ "cssmin-v3.0.1.php" ] }
+            }
         },
         {
-            "name":     "Sylius project",
-            "homepage": "http://sylius.org"
+            "type": "package",
+            "package": {
+                "name": "ent/jsminplus",
+                "version": "1.4",
+                "dist": { "url": "http://tweakimg.net/files/upload/jsminplus-1.4.zip", "type": "zip" },
+                "autoload": { "classmap": [ "jsminplus.php" ] }
+            }
         },
         {
-            "name":     "Community contributions",
-            "homepage": "http://github.com/Sylius/Sylius/contributors"
+            "type": "package",
+            "package": {
+                "name": "ent/minifycsscompressor",
+                "version": "1.0",
+                "dist": { "url": "http://minify.googlecode.com/svn/trunk/min/lib/Minify/CSS/Compressor.php", "type": "file" },
+                "autoload": { "classmap": [ "Compressor.php" ] }
+            }
         }
     ],
     "require": {
-        "php":                                  ">=5.3.3",
-
-        "athari/yalinqo":                       "*@dev",
-        "doctrine/doctrine-bundle":             "1.2.*@dev",
-        "doctrine/doctrine-fixtures-bundle":    "2.2.*",
-        "doctrine/orm":                         "~2.3",
-        "friendsofsymfony/rest-bundle":         "0.13.*",
-        "friendsofsymfony/user-bundle":         "2.0.*@dev",
-        "fzaninotto/faker":                     "1.2.*",
-        "incenteev/composer-parameter-handler": "~2.0",
-        "jms/serializer-bundle":                "0.12.*",
-        "jms/translation-bundle":               "1.1.*",
-        "knplabs/knp-menu-bundle":              "*@dev",
-        "knplabs/knp-gaufrette-bundle":         "*@dev",
-        "knplabs/knp-snappy-bundle":            "*@dev",
-        "liip/doctrine-cache-bundle":           "*",
-        "liip/imagine-bundle":                  "0.9.*",
-        "mathiasverraes/money":                 "*@dev",
-        "omnipay/omnipay":                      "*@dev",
-        "sensio/distribution-bundle":           "2.3.*",
-        "stof/doctrine-extensions-bundle":      "1.1.*",
-        "symfony/assetic-bundle":               "2.3.*",
-        "symfony/intl":                         "~2.3",
-        "symfony/monolog-bundle":               "2.3.*",
-        "symfony/swiftmailer-bundle":           "2.3.*",
-        "symfony/symfony":                      "~2.3",
-        "twig/extensions":                      "1.0.*",
-        "white-october/pagerfanta-bundle":      "1.0.*@dev"
+        "php": ">=5.4",
+        "zendframework/zendframework": "~2.2.4",
+        "doctrine/doctrine-module": "~0.5",
+        "doctrine/doctrine-orm-module": "~0.4",
+        "doctrine/orm": "~2.3.0",
+        "kriswallsmith/assetic": "~1.2",
+        "RWOverdijk/AssetManager": "~1.4",
+        "PHPOffice/PHPWord": "~0.12",
+        "league/csv": "~6.0",
+        "qu-modules/qu-tcpdf":"dev-master",
+        "ent/cssmin": "*",
+        "ent/jsminplus": "*",
+        "ent/minifycsscompressor":"*"
     },
     "require-dev": {
-        "behat/behat":                  "2.4.*@stable",
-        "behat/symfony2-extension":     "*",
-        "behat/mink-extension":         "*",
-        "behat/mink-browserkit-driver": "*",
-        "phpspec/phpspec":              "2.0.*@dev",
-        "behat/mink-selenium2-driver":  "*"
+        "zendframework/zftool": "~0.1.0"
     },
     "scripts": {
         "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
-        ],
-        "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "rm -Rf data/cache",
+            "mkdir -p data/cache",
+            "mkdir -p data/logs/ent_sql",
+            "mkdir -p data/logs/ent_errors",
+            "mkdir -p data/logs/ent_authent",
+            "mkdir -p data/logs/ent_actions",
+            "chmod -R 777 data"
         ]
-    },
-    "autoload": {
-        "psr-0": { "Sylius\\": "src/" }
-    },
-    "config": {
-        "bin-dir": "bin"
-    },
-    "extra": {
-        "symfony-app-dir": "app",
-        "symfony-web-dir": "web",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
-        }
     }
 }
